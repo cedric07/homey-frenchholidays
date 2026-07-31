@@ -1,0 +1,14 @@
+{
+  "name": {
+    "en": "Day summary",
+    "fr": "Résumé du jour"
+  },
+  "height": "60%",
+  "transparent": false,
+  "api": {
+    "getSummary": {
+      "method": "GET",
+      "path": "/"
+    }
+  }
+}

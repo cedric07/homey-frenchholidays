@@ -1,0 +1,38 @@
+{
+  "settings": {
+    "title": "Réglages Informations du jour",
+    "subtitle": "Configurez la zone de vacances scolaires et la région des jours fériés",
+    "dataHelp": "Les jours fériés et vacances scolaires proviennent des APIs officielles (calendrier.api.gouv.fr, data.education.gouv.fr) et sont mis en cache sur votre Homey. Lune, saison et week-end sont calculés localement.",
+    "autoUpdateHelp": "Chaque nuit (vers 00h05 heure de Paris), l'app recalcule les infos du jour et déclenche vos Flows si un événement change. Le cache distant se renouvelle automatiquement au plus tard tous les 90 jours (vacances) ou 180 jours (fériés).",
+    "syncHelp": "« Forcer la synchronisation » retélécharge tout de suite les calendriers distants, même si le cache est encore valide — utile après un changement de zone ou de région.",
+    "schoolZoneHelp": "La zone dépend de l'académie scolaire, pas forcément de votre domicile. La suggestion par géolocalisation n'est qu'une aide.",
+    "schoolZone": "Zone de vacances scolaires",
+    "holidayRegion": "Région des jours fériés",
+    "labelLanguage": "Langue des libellés",
+    "lastSync": "Dernière synchronisation",
+    "never": "Jamais",
+    "save": "Enregistrer",
+    "sync": "Forcer la synchronisation",
+    "suggest": "Suggérer depuis la position Homey",
+    "saved": "Réglages enregistrés",
+    "syncDone": "Données synchronisées",
+    "syncError": "Échec de la synchronisation",
+    "suggestDone": "Suggestion appliquée",
+    "suggestError": "Impossible de déterminer la zone depuis la position",
+    "langFr": "Français",
+    "langEn": "Anglais"
+  },
+  "widget": {
+    "title": "Résumé du jour",
+    "publicHoliday": "Jour férié",
+    "schoolHoliday": "Vacances scolaires",
+    "none": "Aucun",
+    "inDays": "Dans __days__ jour(s)",
+    "endsInDays": "Fin dans __days__ jour(s)",
+    "moon": "Lune",
+    "season": "Saison",
+    "weekend": "Week-end",
+    "yes": "Oui",
+    "no": "Non"
+  }
+}

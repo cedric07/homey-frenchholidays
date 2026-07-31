@@ -1,0 +1,26 @@
+{
+  "title": {
+    "en": "Days until next school vacation is at most...",
+    "fr": "Jours avant les prochaines vacances scolaires ≤ ..."
+  },
+  "titleFormatted": {
+    "en": "Days until next school vacation !{{is|is not}} at most [[days]]",
+    "fr": "Jours avant les prochaines vacances !{{≤|>}} [[days]]"
+  },
+  "args": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "fr": "Jours"
+      },
+      "min": 0,
+      "max": 365,
+      "placeholder": {
+        "en": "7",
+        "fr": "7"
+      }
+    }
+  ]
+}

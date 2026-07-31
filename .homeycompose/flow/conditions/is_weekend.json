@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "It is the weekend",
+    "fr": "C'est le week-end"
+  },
+  "titleFormatted": {
+    "en": "It !{{is|is not}} the weekend",
+    "fr": "C'!{{est|est pas}} le week-end"
+  }
+}

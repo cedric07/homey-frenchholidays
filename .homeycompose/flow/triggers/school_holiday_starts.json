@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "School vacation starts today",
+    "fr": "Les vacances scolaires commencent aujourd'hui"
+  },
+  "tokens": [
+    { "name": "school_holiday_label", "type": "string", "title": { "en": "Vacation label", "fr": "Libellé vacances" } },
+    { "name": "days_until_school_holiday_end", "type": "number", "title": { "en": "Days until end", "fr": "Jours avant la fin" } }
+  ]
+}

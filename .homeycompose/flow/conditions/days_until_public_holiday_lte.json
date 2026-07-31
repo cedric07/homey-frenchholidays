@@ -1,0 +1,26 @@
+{
+  "title": {
+    "en": "Days until next public holiday is at most...",
+    "fr": "Jours avant le prochain jour férié ≤ ..."
+  },
+  "titleFormatted": {
+    "en": "Days until next public holiday !{{is|is not}} at most [[days]]",
+    "fr": "Jours avant le prochain jour férié !{{≤|>}} [[days]]"
+  },
+  "args": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "fr": "Jours"
+      },
+      "min": 0,
+      "max": 365,
+      "placeholder": {
+        "en": "7",
+        "fr": "7"
+      }
+    }
+  ]
+}

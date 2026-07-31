@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "The season changes",
+    "fr": "La saison change"
+  },
+  "tokens": [
+    { "name": "season_name", "type": "string", "title": { "en": "New season", "fr": "Nouvelle saison" } }
+  ]
+}

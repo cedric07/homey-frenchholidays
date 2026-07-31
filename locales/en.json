@@ -1,1 +1,38 @@
-{}
+{
+  "settings": {
+    "title": "Day Info Settings",
+    "subtitle": "Configure school vacation zone and public holiday region",
+    "dataHelp": "Public holidays and school vacations come from official APIs (calendrier.api.gouv.fr, data.education.gouv.fr) and are cached on your Homey. Moon, season and weekend are computed locally.",
+    "autoUpdateHelp": "Every night (around 00:05 Paris time), the app recalculates day info and triggers your Flows when something changes. Remote cache is renewed automatically at most every 90 days (vacations) or 180 days (public holidays).",
+    "syncHelp": "\"Force sync\" re-downloads remote calendars immediately, even if the cache is still valid — useful after changing zone or region.",
+    "schoolZoneHelp": "The zone depends on the school academy, not necessarily your home address. Geolocation suggestion is only a hint.",
+    "schoolZone": "School vacation zone",
+    "holidayRegion": "Public holiday region",
+    "labelLanguage": "Event label language",
+    "lastSync": "Last synchronization",
+    "never": "Never",
+    "save": "Save",
+    "sync": "Force sync",
+    "suggest": "Suggest from Homey location",
+    "saved": "Settings saved",
+    "syncDone": "Data synchronized",
+    "syncError": "Synchronization failed",
+    "suggestDone": "Suggestion applied",
+    "suggestError": "Could not determine zone from location",
+    "langFr": "French",
+    "langEn": "English"
+  },
+  "widget": {
+    "title": "Day summary",
+    "publicHoliday": "Public holiday",
+    "schoolHoliday": "School vacation",
+    "none": "None",
+    "inDays": "In __days__ day(s)",
+    "endsInDays": "Ends in __days__ day(s)",
+    "moon": "Moon",
+    "season": "Season",
+    "weekend": "Weekend",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

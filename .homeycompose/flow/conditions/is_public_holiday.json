@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "It is a public holiday",
+    "fr": "C'est un jour férié"
+  },
+  "titleFormatted": {
+    "en": "It !{{is|is not}} a public holiday",
+    "fr": "C'!{{est|est pas}} un jour férié"
+  }
+}

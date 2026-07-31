@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+</head>
+<body>
+  <header class="homey-header">
+    <h1 class="homey-title" data-i18n="settings.title"></h1>
+    <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
+  </header>
+
+  <p class="homey-form-help" data-i18n="settings.dataHelp"></p>
+  <p class="homey-form-help" data-i18n="settings.autoUpdateHelp"></p>
+
+  <fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend" data-i18n="settings.schoolZone"></legend>
+    <p class="homey-form-help" data-i18n="settings.schoolZoneHelp"></p>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="schoolZone" data-i18n="settings.schoolZone"></label>
+      <select class="homey-form-select" id="schoolZone"></select>
+    </div>
+    <button type="button" id="suggest" class="homey-button-secondary-full" data-i18n="settings.suggest"></button>
+  </fieldset>
+
+  <fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend" data-i18n="settings.holidayRegion"></legend>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="holidayRegion" data-i18n="settings.holidayRegion"></label>
+      <select class="homey-form-select" id="holidayRegion"></select>
+    </div>
+  </fieldset>
+
+  <fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend" data-i18n="settings.labelLanguage"></legend>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="labelLanguage" data-i18n="settings.labelLanguage"></label>
+      <select class="homey-form-select" id="labelLanguage">
+        <option value="fr" data-i18n="settings.langFr"></option>
+        <option value="en" data-i18n="settings.langEn"></option>
+      </select>
+    </div>
+  </fieldset>
+
+  <p><strong data-i18n="settings.lastSync"></strong>: <span id="lastSync">-</span></p>
+  <p class="homey-form-help" data-i18n="settings.syncHelp"></p>
+
+  <button type="button" id="sync" class="homey-button-secondary-full" data-i18n="settings.sync"></button>
+  <button type="button" id="save" class="homey-button-primary-full" data-i18n="settings.save"></button>
+
+  <script type="text/javascript">
+    const SCHOOL_ZONES = [
+      'Zone A', 'Zone B', 'Zone C', 'Corse', 'Guadeloupe', 'Martinique',
+      'Guyane', 'La Réunion', 'Mayotte', 'Nouvelle-Calédonie', 'Polynésie française',
+    ];
+
+    const HOLIDAY_REGIONS = [
+      { id: 'metropole', label: 'Métropole' },
+      { id: 'alsace-moselle', label: 'Alsace-Moselle' },
+      { id: 'guadeloupe', label: 'Guadeloupe' },
+      { id: 'guyane', label: 'Guyane' },
+      { id: 'la-reunion', label: 'La Réunion' },
+      { id: 'martinique', label: 'Martinique' },
+      { id: 'mayotte', label: 'Mayotte' },
+      { id: 'nouvelle-caledonie', label: 'Nouvelle-Calédonie' },
+      { id: 'polynesie-francaise', label: 'Polynésie française' },
+      { id: 'saint-barthelemy', label: 'Saint-Barthélemy' },
+      { id: 'saint-martin', label: 'Saint-Martin' },
+      { id: 'saint-pierre-et-miquelon', label: 'Saint-Pierre-et-Miquelon' },
+      { id: 'wallis-et-futuna', label: 'Wallis-et-Futuna' },
+    ];
+
+    function fillSelect(select, options, valueKey, labelKey) {
+      select.innerHTML = '';
+      options.forEach((opt) => {
+        const el = document.createElement('option');
+        if (typeof opt === 'string') {
+          el.value = opt;
+          el.textContent = opt;
+        } else {
+          el.value = opt[valueKey];
+          el.textContent = opt[labelKey];
+        }
+        select.appendChild(el);
+      });
+    }
+
+    function onHomeyReady(Homey) {
+      const schoolZoneEl = document.getElementById('schoolZone');
+      const holidayRegionEl = document.getElementById('holidayRegion');
+      const labelLanguageEl = document.getElementById('labelLanguage');
+      const lastSyncEl = document.getElementById('lastSync');
+
+      fillSelect(schoolZoneEl, SCHOOL_ZONES);
+      fillSelect(holidayRegionEl, HOLIDAY_REGIONS, 'id', 'label');
+
+      Homey.get('schoolZone', (err, val) => {
+        if (!err && val) schoolZoneEl.value = val;
+      });
+      Homey.get('holidayRegion', (err, val) => {
+        if (!err && val) holidayRegionEl.value = val;
+      });
+      Homey.get('labelLanguage', (err, val) => {
+        if (!err && val) labelLanguageEl.value = val;
+      });
+      Homey.get('lastSyncAt', (err, val) => {
+        lastSyncEl.textContent = val ? new Date(val).toLocaleString() : Homey.__('settings.never');
+      });
+
+      Homey.ready();
+
+      document.getElementById('save').addEventListener('click', () => {
+        Homey.set('schoolZone', schoolZoneEl.value, (err) => {
+          if (err) return Homey.alert(String(err));
+          Homey.set('holidayRegion', holidayRegionEl.value, (err2) => {
+            if (err2) return Homey.alert(String(err2));
+            Homey.set('labelLanguage', labelLanguageEl.value, (err3) => {
+              if (err3) return Homey.alert(String(err3));
+              Homey.alert(Homey.__('settings.saved'));
+            });
+          });
+        });
+      });
+
+      document.getElementById('sync').addEventListener('click', () => {
+        Homey.api('POST', '/sync', null, (err) => {
+          if (err) return Homey.alert(Homey.__('settings.syncError'));
+          Homey.get('lastSyncAt', (e, val) => {
+            lastSyncEl.textContent = val ? new Date(val).toLocaleString() : '-';
+          });
+          Homey.alert(Homey.__('settings.syncDone'));
+        });
+      });
+
+      document.getElementById('suggest').addEventListener('click', () => {
+        Homey.api('GET', '/suggest-zone', null, (err, result) => {
+          if (err || !result || result.error) {
+            return Homey.alert(Homey.__('settings.suggestError'));
+          }
+          if (result.schoolZone) schoolZoneEl.value = result.schoolZone;
+          if (result.holidayRegion) holidayRegionEl.value = result.holidayRegion;
+          Homey.alert(Homey.__('settings.suggestDone'));
+        });
+      });
+    }
+  </script>
+</body>
+</html>

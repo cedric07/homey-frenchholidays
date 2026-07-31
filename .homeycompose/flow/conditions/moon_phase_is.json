@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "The moon phase is...",
+    "fr": "La phase lunaire est..."
+  },
+  "titleFormatted": {
+    "en": "The moon phase !{{is|is not}} [[phase]]",
+    "fr": "La phase lunaire !{{est|n'est pas}} [[phase]]"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "phase",
+      "title": {
+        "en": "Phase",
+        "fr": "Phase"
+      },
+      "values": [
+        { "id": "new", "label": { "en": "New moon", "fr": "Nouvelle lune" } },
+        { "id": "waxing_crescent", "label": { "en": "Waxing crescent", "fr": "Premier croissant" } },
+        { "id": "first_quarter", "label": { "en": "First quarter", "fr": "Premier quartier" } },
+        { "id": "waxing_gibbous", "label": { "en": "Waxing gibbous", "fr": "Gibbeuse croissante" } },
+        { "id": "full", "label": { "en": "Full moon", "fr": "Pleine lune" } },
+        { "id": "waning_gibbous", "label": { "en": "Waning gibbous", "fr": "Gibbeuse décroissante" } },
+        { "id": "last_quarter", "label": { "en": "Last quarter", "fr": "Dernier quartier" } },
+        { "id": "waning_crescent", "label": { "en": "Waning crescent", "fr": "Dernier croissant" } }
+      ]
+    }
+  ]
+}

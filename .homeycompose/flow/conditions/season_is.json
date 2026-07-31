@@ -1,0 +1,26 @@
+{
+  "title": {
+    "en": "The season is...",
+    "fr": "La saison est..."
+  },
+  "titleFormatted": {
+    "en": "The season !{{is|is not}} [[season]]",
+    "fr": "La saison !{{est|n'est pas}} [[season]]"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "season",
+      "title": {
+        "en": "Season",
+        "fr": "Saison"
+      },
+      "values": [
+        { "id": "winter", "label": { "en": "Winter", "fr": "Hiver" } },
+        { "id": "spring", "label": { "en": "Spring", "fr": "Printemps" } },
+        { "id": "summer", "label": { "en": "Summer", "fr": "Été" } },
+        { "id": "fall", "label": { "en": "Fall", "fr": "Automne" } }
+      ]
+    }
+  ]
+}

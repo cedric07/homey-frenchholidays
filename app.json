@@ -9,15 +9,20 @@
     "local"
   ],
   "name": {
-    "en": "Day Informations"
+    "en": "Day Info",
+    "fr": "Informations du jour"
   },
   "description": {
-    "en": "Adds support for MyBrand devices."
+    "en": "Public holidays, school vacations, moon phase and seasonal info for France.",
+    "fr": "Jours fériés, vacances scolaires, phase lunaire et infos du jour pour la France."
   },
   "category": [
     "tools"
   ],
-  "permissions": [],
+  "brandColor": "#3478B3",
+  "permissions": [
+    "homey:manager:geolocation"
+  ],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
@@ -26,5 +31,474 @@
   "author": {
     "name": "Cédric Andrietti",
     "email": "cedric.andrietti@gmail.com"
+  },
+  "api": {
+    "getSummary": {
+      "method": "GET",
+      "path": "/summary"
+    },
+    "sync": {
+      "method": "POST",
+      "path": "/sync"
+    },
+    "suggestZone": {
+      "method": "GET",
+      "path": "/suggest-zone"
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "title": {
+          "en": "It is a public holiday today",
+          "fr": "C'est un jour férié aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "public_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Holiday name",
+              "fr": "Nom du jour férié"
+            }
+          }
+        ],
+        "id": "public_holiday_today"
+      },
+      {
+        "title": {
+          "en": "Tomorrow is a public holiday",
+          "fr": "Demain est un jour férié"
+        },
+        "tokens": [
+          {
+            "name": "public_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Holiday name",
+              "fr": "Nom du jour férié"
+            }
+          }
+        ],
+        "id": "public_holiday_tomorrow"
+      },
+      {
+        "title": {
+          "en": "School vacation ends today",
+          "fr": "Les vacances scolaires se terminent aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "school_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Vacation label",
+              "fr": "Libellé vacances"
+            }
+          },
+          {
+            "name": "days_until_school_holiday",
+            "type": "number",
+            "title": {
+              "en": "Days until next vacation",
+              "fr": "Jours avant prochaines vacances"
+            }
+          }
+        ],
+        "id": "school_holiday_ends"
+      },
+      {
+        "title": {
+          "en": "School vacation starts today",
+          "fr": "Les vacances scolaires commencent aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "school_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Vacation label",
+              "fr": "Libellé vacances"
+            }
+          },
+          {
+            "name": "days_until_school_holiday_end",
+            "type": "number",
+            "title": {
+              "en": "Days until end",
+              "fr": "Jours avant la fin"
+            }
+          }
+        ],
+        "id": "school_holiday_starts"
+      },
+      {
+        "title": {
+          "en": "The season changes",
+          "fr": "La saison change"
+        },
+        "tokens": [
+          {
+            "name": "season_name",
+            "type": "string",
+            "title": {
+              "en": "New season",
+              "fr": "Nouvelle saison"
+            }
+          }
+        ],
+        "id": "season_changes"
+      },
+      {
+        "title": {
+          "en": "The weekend starts",
+          "fr": "Le week-end commence"
+        },
+        "tokens": [
+          {
+            "name": "day_of_year",
+            "type": "number",
+            "title": {
+              "en": "Day of year",
+              "fr": "Jour de l'année"
+            }
+          }
+        ],
+        "id": "weekend_starts"
+      }
+    ],
+    "conditions": [
+      {
+        "title": {
+          "en": "Day of year is...",
+          "fr": "Jour de l'année est..."
+        },
+        "titleFormatted": {
+          "en": "Day of year !{{is|is not}} [[day]]",
+          "fr": "Jour de l'année !{{est|n'est pas}} [[day]]"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "day",
+            "title": {
+              "en": "Day",
+              "fr": "Jour"
+            },
+            "min": 1,
+            "max": 366,
+            "placeholder": {
+              "en": "1",
+              "fr": "1"
+            }
+          }
+        ],
+        "id": "day_of_year_is"
+      },
+      {
+        "title": {
+          "en": "Days until next public holiday is at most...",
+          "fr": "Jours avant le prochain jour férié ≤ ..."
+        },
+        "titleFormatted": {
+          "en": "Days until next public holiday !{{is|is not}} at most [[days]]",
+          "fr": "Jours avant le prochain jour férié !{{≤|>}} [[days]]"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 0,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "id": "days_until_public_holiday_lte"
+      },
+      {
+        "title": {
+          "en": "Days until next school vacation is at most...",
+          "fr": "Jours avant les prochaines vacances scolaires ≤ ..."
+        },
+        "titleFormatted": {
+          "en": "Days until next school vacation !{{is|is not}} at most [[days]]",
+          "fr": "Jours avant les prochaines vacances !{{≤|>}} [[days]]"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 0,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "id": "days_until_school_holiday_lte"
+      },
+      {
+        "title": {
+          "en": "It is the last weekday occurrence in the month",
+          "fr": "C'est la dernière occurrence du jour de la semaine dans le mois"
+        },
+        "titleFormatted": {
+          "en": "It !{{is|is not}} the last weekday occurrence in the month",
+          "fr": "C'!{{est|est pas}} la dernière occurrence du jour de la semaine dans le mois"
+        },
+        "id": "is_last_weekday_occurrence"
+      },
+      {
+        "title": {
+          "en": "It is a public holiday",
+          "fr": "C'est un jour férié"
+        },
+        "titleFormatted": {
+          "en": "It !{{is|is not}} a public holiday",
+          "fr": "C'!{{est|est pas}} un jour férié"
+        },
+        "id": "is_public_holiday"
+      },
+      {
+        "title": {
+          "en": "It is school vacation",
+          "fr": "Ce sont les vacances scolaires"
+        },
+        "titleFormatted": {
+          "en": "It !{{is|is not}} school vacation",
+          "fr": "Ce !{{sont|ne sont pas}} les vacances scolaires"
+        },
+        "id": "is_school_holiday"
+      },
+      {
+        "title": {
+          "en": "It is the weekend",
+          "fr": "C'est le week-end"
+        },
+        "titleFormatted": {
+          "en": "It !{{is|is not}} the weekend",
+          "fr": "C'!{{est|est pas}} le week-end"
+        },
+        "id": "is_weekend"
+      },
+      {
+        "title": {
+          "en": "The moon phase is...",
+          "fr": "La phase lunaire est..."
+        },
+        "titleFormatted": {
+          "en": "The moon phase !{{is|is not}} [[phase]]",
+          "fr": "La phase lunaire !{{est|n'est pas}} [[phase]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "phase",
+            "title": {
+              "en": "Phase",
+              "fr": "Phase"
+            },
+            "values": [
+              {
+                "id": "new",
+                "label": {
+                  "en": "New moon",
+                  "fr": "Nouvelle lune"
+                }
+              },
+              {
+                "id": "waxing_crescent",
+                "label": {
+                  "en": "Waxing crescent",
+                  "fr": "Premier croissant"
+                }
+              },
+              {
+                "id": "first_quarter",
+                "label": {
+                  "en": "First quarter",
+                  "fr": "Premier quartier"
+                }
+              },
+              {
+                "id": "waxing_gibbous",
+                "label": {
+                  "en": "Waxing gibbous",
+                  "fr": "Gibbeuse croissante"
+                }
+              },
+              {
+                "id": "full",
+                "label": {
+                  "en": "Full moon",
+                  "fr": "Pleine lune"
+                }
+              },
+              {
+                "id": "waning_gibbous",
+                "label": {
+                  "en": "Waning gibbous",
+                  "fr": "Gibbeuse décroissante"
+                }
+              },
+              {
+                "id": "last_quarter",
+                "label": {
+                  "en": "Last quarter",
+                  "fr": "Dernier quartier"
+                }
+              },
+              {
+                "id": "waning_crescent",
+                "label": {
+                  "en": "Waning crescent",
+                  "fr": "Dernier croissant"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "moon_phase_is"
+      },
+      {
+        "title": {
+          "en": "The season is...",
+          "fr": "La saison est..."
+        },
+        "titleFormatted": {
+          "en": "The season !{{is|is not}} [[season]]",
+          "fr": "La saison !{{est|n'est pas}} [[season]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "season",
+            "title": {
+              "en": "Season",
+              "fr": "Saison"
+            },
+            "values": [
+              {
+                "id": "winter",
+                "label": {
+                  "en": "Winter",
+                  "fr": "Hiver"
+                }
+              },
+              {
+                "id": "spring",
+                "label": {
+                  "en": "Spring",
+                  "fr": "Printemps"
+                }
+              },
+              {
+                "id": "summer",
+                "label": {
+                  "en": "Summer",
+                  "fr": "Été"
+                }
+              },
+              {
+                "id": "fall",
+                "label": {
+                  "en": "Fall",
+                  "fr": "Automne"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "season_is"
+      },
+      {
+        "title": {
+          "en": "Weekday occurrence in month is...",
+          "fr": "Occurrence du jour dans le mois est..."
+        },
+        "titleFormatted": {
+          "en": "Weekday occurrence in month !{{is|is not}} [[occurrence]]",
+          "fr": "Occurrence du jour dans le mois !{{est|n'est pas}} [[occurrence]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "occurrence",
+            "title": {
+              "en": "Occurrence",
+              "fr": "Occurrence"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "1st",
+                  "fr": "1ère"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "2nd",
+                  "fr": "2ème"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "3rd",
+                  "fr": "3ème"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "4th",
+                  "fr": "4ème"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "5th",
+                  "fr": "5ème"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "weekday_occurrence_is"
+      }
+    ]
+  },
+  "widgets": {
+    "day-summary": {
+      "name": {
+        "en": "Day summary",
+        "fr": "Résumé du jour"
+      },
+      "height": "60%",
+      "transparent": false,
+      "api": {
+        "getSummary": {
+          "method": "GET",
+          "path": "/"
+        }
+      },
+      "id": "day-summary",
+      "settings": []
+    }
   }
 }

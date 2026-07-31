@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Weekday occurrence in month is...",
+    "fr": "Occurrence du jour dans le mois est..."
+  },
+  "titleFormatted": {
+    "en": "Weekday occurrence in month !{{is|is not}} [[occurrence]]",
+    "fr": "Occurrence du jour dans le mois !{{est|n'est pas}} [[occurrence]]"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "occurrence",
+      "title": {
+        "en": "Occurrence",
+        "fr": "Occurrence"
+      },
+      "values": [
+        { "id": "1", "label": { "en": "1st", "fr": "1ère" } },
+        { "id": "2", "label": { "en": "2nd", "fr": "2ème" } },
+        { "id": "3", "label": { "en": "3rd", "fr": "3ème" } },
+        { "id": "4", "label": { "en": "4th", "fr": "4ème" } },
+        { "id": "5", "label": { "en": "5th", "fr": "5ème" } }
+      ]
+    }
+  ]
+}

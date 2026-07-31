@@ -8,15 +8,20 @@
     "local"
   ],
   "name": {
-    "en": "Day Informations"
+    "en": "Day Info",
+    "fr": "Informations du jour"
   },
   "description": {
-    "en": "Adds support for MyBrand devices."
+    "en": "Public holidays, school vacations, moon phase and seasonal info for France.",
+    "fr": "Jours fériés, vacances scolaires, phase lunaire et infos du jour pour la France."
   },
   "category": [
     "tools"
   ],
-  "permissions": [],
+  "brandColor": "#3478B3",
+  "permissions": [
+    "homey:manager:geolocation"
+  ],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
@@ -25,5 +30,19 @@
   "author": {
     "name": "Cédric Andrietti",
     "email": "cedric.andrietti@gmail.com"
+  },
+  "api": {
+    "getSummary": {
+      "method": "GET",
+      "path": "/summary"
+    },
+    "sync": {
+      "method": "POST",
+      "path": "/sync"
+    },
+    "suggestZone": {
+      "method": "GET",
+      "path": "/suggest-zone"
+    }
   }
 }

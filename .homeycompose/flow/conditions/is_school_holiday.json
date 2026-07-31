@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "It is school vacation",
+    "fr": "Ce sont les vacances scolaires"
+  },
+  "titleFormatted": {
+    "en": "It !{{is|is not}} school vacation",
+    "fr": "Ce !{{sont|ne sont pas}} les vacances scolaires"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "The weekend starts",
+    "fr": "Le week-end commence"
+  },
+  "tokens": [
+    { "name": "day_of_year", "type": "number", "title": { "en": "Day of year", "fr": "Jour de l'année" } }
+  ]
+}
