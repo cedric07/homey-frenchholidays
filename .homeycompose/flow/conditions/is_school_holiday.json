@@ -1,0 +1,25 @@
+{
+  "title": {
+    "en": "It is school vacation...",
+    "fr": "Ce sont les vacances scolaires..."
+  },
+  "titleFormatted": {
+    "en": "[[when]] !{{is|is not}} school vacation",
+    "fr": "[[when]], ce !{{sont|ne sont pas}} les vacances scolaires"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "when",
+      "title": {
+        "en": "When",
+        "fr": "Quand"
+      },
+      "values": [
+        { "id": "today", "label": { "en": "Today", "fr": "Aujourd'hui" } },
+        { "id": "tomorrow", "label": { "en": "Tomorrow", "fr": "Demain" } },
+        { "id": "yesterday", "label": { "en": "Yesterday", "fr": "Hier" } }
+      ]
+    }
+  ]
+}

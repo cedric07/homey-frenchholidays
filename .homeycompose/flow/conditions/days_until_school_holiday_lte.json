@@ -1,0 +1,26 @@
+{
+  "title": {
+    "en": "Next school vacation starts within...",
+    "fr": "Les prochaines vacances commencent bientôt..."
+  },
+  "titleFormatted": {
+    "en": "The next school vacation !{{starts|does not start}} within [[days]] day(s)",
+    "fr": "Les prochaines vacances scolaires !{{commencent|ne commencent pas}} dans [[days]] jour(s) ou moins"
+  },
+  "args": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "fr": "Jours"
+      },
+      "min": 0,
+      "max": 365,
+      "placeholder": {
+        "en": "7",
+        "fr": "7"
+      }
+    }
+  ]
+}

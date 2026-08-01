@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "School vacation starts in ... days",
+    "fr": "Les vacances scolaires commencent dans ... jours"
+  },
+  "titleFormatted": {
+    "en": "School vacation starts in [[days]] day(s)",
+    "fr": "Les vacances scolaires commencent dans [[days]] jour(s)"
+  },
+  "args": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "fr": "Jours"
+      },
+      "min": 1,
+      "max": 365,
+      "placeholder": {
+        "en": "7",
+        "fr": "7"
+      }
+    }
+  ],
+  "tokens": [
+    { "name": "school_holiday_label", "type": "string", "title": { "en": "Vacation label", "fr": "Libellé vacances" } },
+    { "name": "days_until_school_holiday", "type": "number", "title": { "en": "Days until start", "fr": "Jours avant le début" } }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "It is a public holiday today",
+    "fr": "C'est un jour férié aujourd'hui"
+  },
+  "tokens": [
+    { "name": "public_holiday_label", "type": "string", "title": { "en": "Holiday name", "fr": "Nom du jour férié" } }
+  ]
+}

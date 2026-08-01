@@ -1,0 +1,26 @@
+{
+  "title": {
+    "en": "Next public holiday is within...",
+    "fr": "Le prochain jour férié arrive bientôt..."
+  },
+  "titleFormatted": {
+    "en": "The next public holiday !{{is|is not}} within [[days]] day(s)",
+    "fr": "Le prochain jour férié !{{arrive|n'arrive pas}} dans [[days]] jour(s) ou moins"
+  },
+  "args": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "fr": "Jours"
+      },
+      "min": 0,
+      "max": 365,
+      "placeholder": {
+        "en": "7",
+        "fr": "7"
+      }
+    }
+  ]
+}

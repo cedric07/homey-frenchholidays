@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "title": "Vacances scolaires en France",
+    "subtitle": "Zone scolaire, jours fériés et synchronisation",
+    "sectionLocation": "Localisation",
+    "sectionLocationDesc": "Choisissez la zone de vacances et, en option, la région des jours fériés.",
+    "sectionPrefs": "Préférences",
+    "sectionPrefsDesc": "Langue des noms de vacances/fériés (français officiel par défaut). L’interface Homey suit la langue de l’app.",
+    "labelLanguageHelp": "Par défaut : libellés officiels en français. Passez en anglais si vos Flows/widget sont en anglais.",
+    "sectionData": "Données",
+    "dataHelp": "Calendriers officiels en cache sur Homey. Recalcul chaque nuit ~00h05 (Paris) ; cache renouvelé au plus tard tous les 90 j (vacances) / 180 j (fériés).",
+    "syncHelp": "Retélécharge les calendriers immédiatement, même si le cache est encore valide.",
+    "schoolZoneHelp": "Zone = académie scolaire. La géoloc n'est qu'une suggestion.",
+    "schoolZone": "Zone de vacances scolaires",
+    "holidayRegion": "Région des jours fériés",
+    "labelLanguage": "Langue des libellés",
+    "lastSync": "Dernière synchronisation",
+    "never": "Jamais",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "sync": "Forcer la synchronisation",
+    "syncing": "Synchronisation…",
+    "suggest": "Suggérer depuis la position Homey",
+    "suggesting": "Recherche…",
+    "saved": "Réglages enregistrés",
+    "saveError": "Échec de l'enregistrement",
+    "syncDone": "Données synchronisées",
+    "syncError": "Échec de la synchronisation",
+    "suggestDone": "Suggestion appliquée — pensez à enregistrer",
+    "suggestError": "Impossible de déterminer la zone depuis la position",
+    "langFr": "Français",
+    "langEn": "Anglais"
+  },
+  "widget": {
+    "title": "Aujourd'hui",
+    "publicHoliday": "Jour férié",
+    "schoolHoliday": "Vacances scolaires",
+    "none": "Aucun",
+    "inDays": "Dans __days__ jour(s)",
+    "endsInDays": "Fin dans __days__ jour(s)"
+  }
+}

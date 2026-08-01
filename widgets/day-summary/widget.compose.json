@@ -1,0 +1,14 @@
+{
+  "name": {
+    "en": "Today",
+    "fr": "Aujourd'hui"
+  },
+  "height": "60%",
+  "transparent": false,
+  "api": {
+    "getSummary": {
+      "method": "GET",
+      "path": "/"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": {
+    "en": "School vacation ends within...",
+    "fr": "Les vacances se terminent bientôt..."
+  },
+  "titleFormatted": {
+    "en": "School vacation !{{ends|does not end}} within [[days]] day(s)",
+    "fr": "Les vacances scolaires !{{se terminent|ne se terminent pas}} dans [[days]] jour(s) ou moins"
+  },
+  "args": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "fr": "Jours"
+      },
+      "min": 0,
+      "max": 365,
+      "placeholder": {
+        "en": "7",
+        "fr": "7"
+      }
+    }
+  ]
+}

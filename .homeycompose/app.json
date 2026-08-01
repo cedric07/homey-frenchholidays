@@ -1,5 +1,5 @@
 {
-  "id": "com.cedric07.dayinfo",
+  "id": "com.cedric07.frenchholidays",
   "version": "1.0.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
@@ -8,22 +8,41 @@
     "local"
   ],
   "name": {
-    "en": "Day Informations"
+    "en": "French School Holidays",
+    "fr": "Vacances scolaires en France"
   },
   "description": {
-    "en": "Adds support for MyBrand devices."
+    "en": "French school vacations by zone (A/B/C…), plus regional public holidays for Homey.",
+    "fr": "Vacances scolaires par zone (A/B/C…), et jours fériés régionaux pour Homey."
   },
   "category": [
     "tools"
   ],
-  "permissions": [],
+  "brandColor": "#002395",
+  "permissions": [
+    "homey:manager:geolocation"
+  ],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "Cédric Andrietti",
-    "email": "cedric.andrietti@gmail.com"
+    "name": "Cédric Andrietti"
+  },
+  "support": "https://github.com/cedric07/homey-frenchholidays/issues",
+  "api": {
+    "getSummary": {
+      "method": "GET",
+      "path": "/summary"
+    },
+    "sync": {
+      "method": "POST",
+      "path": "/sync"
+    },
+    "suggestZone": {
+      "method": "GET",
+      "path": "/suggest-zone"
+    }
   }
 }

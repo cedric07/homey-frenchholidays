@@ -1,6 +1,6 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
-  "id": "com.cedric07.dayinfo",
+  "id": "com.cedric07.frenchholidays",
   "version": "1.0.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
@@ -9,22 +9,497 @@
     "local"
   ],
   "name": {
-    "en": "Day Informations"
+    "en": "French School Holidays",
+    "fr": "Vacances scolaires en France"
   },
   "description": {
-    "en": "Adds support for MyBrand devices."
+    "en": "French school vacations by zone (A/B/C…), plus regional public holidays for Homey.",
+    "fr": "Vacances scolaires par zone (A/B/C…), et jours fériés régionaux pour Homey."
   },
   "category": [
     "tools"
   ],
-  "permissions": [],
+  "brandColor": "#002395",
+  "permissions": [
+    "homey:manager:geolocation"
+  ],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "Cédric Andrietti",
-    "email": "cedric.andrietti@gmail.com"
+    "name": "Cédric Andrietti"
+  },
+  "support": "https://github.com/cedric07/homey-frenchholidays/issues",
+  "api": {
+    "getSummary": {
+      "method": "GET",
+      "path": "/summary"
+    },
+    "sync": {
+      "method": "POST",
+      "path": "/sync"
+    },
+    "suggestZone": {
+      "method": "GET",
+      "path": "/suggest-zone"
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "title": {
+          "en": "It is a public holiday today",
+          "fr": "C'est un jour férié aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "public_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Holiday name",
+              "fr": "Nom du jour férié"
+            }
+          }
+        ],
+        "id": "public_holiday_today"
+      },
+      {
+        "title": {
+          "en": "Tomorrow is a public holiday",
+          "fr": "Demain est un jour férié"
+        },
+        "tokens": [
+          {
+            "name": "public_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Holiday name",
+              "fr": "Nom du jour férié"
+            }
+          }
+        ],
+        "id": "public_holiday_tomorrow"
+      },
+      {
+        "title": {
+          "en": "School vacation ends today",
+          "fr": "Les vacances scolaires se terminent aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "school_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Vacation label",
+              "fr": "Libellé vacances"
+            }
+          },
+          {
+            "name": "days_until_school_holiday",
+            "type": "number",
+            "title": {
+              "en": "Days until next vacation",
+              "fr": "Jours avant prochaines vacances"
+            }
+          }
+        ],
+        "id": "school_holiday_ends"
+      },
+      {
+        "title": {
+          "en": "School vacation ends in ... days",
+          "fr": "Les vacances scolaires se terminent dans ... jours"
+        },
+        "titleFormatted": {
+          "en": "School vacation ends in [[days]] day(s)",
+          "fr": "Les vacances scolaires se terminent dans [[days]] jour(s)"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 1,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "school_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Vacation label",
+              "fr": "Libellé vacances"
+            }
+          },
+          {
+            "name": "days_until_school_holiday_end",
+            "type": "number",
+            "title": {
+              "en": "Days until end",
+              "fr": "Jours avant la fin"
+            }
+          }
+        ],
+        "id": "school_holiday_ends_in"
+      },
+      {
+        "title": {
+          "en": "School vacation starts today",
+          "fr": "Les vacances scolaires commencent aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "school_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Vacation label",
+              "fr": "Libellé vacances"
+            }
+          },
+          {
+            "name": "days_until_school_holiday_end",
+            "type": "number",
+            "title": {
+              "en": "Days until end",
+              "fr": "Jours avant la fin"
+            }
+          }
+        ],
+        "id": "school_holiday_starts"
+      },
+      {
+        "title": {
+          "en": "School vacation starts in ... days",
+          "fr": "Les vacances scolaires commencent dans ... jours"
+        },
+        "titleFormatted": {
+          "en": "School vacation starts in [[days]] day(s)",
+          "fr": "Les vacances scolaires commencent dans [[days]] jour(s)"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 1,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "school_holiday_label",
+            "type": "string",
+            "title": {
+              "en": "Vacation label",
+              "fr": "Libellé vacances"
+            }
+          },
+          {
+            "name": "days_until_school_holiday",
+            "type": "number",
+            "title": {
+              "en": "Days until start",
+              "fr": "Jours avant le début"
+            }
+          }
+        ],
+        "id": "school_holiday_starts_in"
+      }
+    ],
+    "conditions": [
+      {
+        "title": {
+          "en": "Next public holiday is within...",
+          "fr": "Le prochain jour férié arrive bientôt..."
+        },
+        "titleFormatted": {
+          "en": "The next public holiday !{{is|is not}} within [[days]] day(s)",
+          "fr": "Le prochain jour férié !{{arrive|n'arrive pas}} dans [[days]] jour(s) ou moins"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 0,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "id": "days_until_public_holiday_lte"
+      },
+      {
+        "title": {
+          "en": "School vacation ends within...",
+          "fr": "Les vacances se terminent bientôt..."
+        },
+        "titleFormatted": {
+          "en": "School vacation !{{ends|does not end}} within [[days]] day(s)",
+          "fr": "Les vacances scolaires !{{se terminent|ne se terminent pas}} dans [[days]] jour(s) ou moins"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 0,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "id": "days_until_school_holiday_end_lte"
+      },
+      {
+        "title": {
+          "en": "Next school vacation starts within...",
+          "fr": "Les prochaines vacances commencent bientôt..."
+        },
+        "titleFormatted": {
+          "en": "The next school vacation !{{starts|does not start}} within [[days]] day(s)",
+          "fr": "Les prochaines vacances scolaires !{{commencent|ne commencent pas}} dans [[days]] jour(s) ou moins"
+        },
+        "args": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "fr": "Jours"
+            },
+            "min": 0,
+            "max": 365,
+            "placeholder": {
+              "en": "7",
+              "fr": "7"
+            }
+          }
+        ],
+        "id": "days_until_school_holiday_lte"
+      },
+      {
+        "title": {
+          "en": "It is a public holiday...",
+          "fr": "C'est un jour férié..."
+        },
+        "titleFormatted": {
+          "en": "[[when]] !{{is|is not}} a public holiday",
+          "fr": "[[when]], c'!{{est|est pas}} un jour férié"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "when",
+            "title": {
+              "en": "When",
+              "fr": "Quand"
+            },
+            "values": [
+              {
+                "id": "today",
+                "label": {
+                  "en": "Today",
+                  "fr": "Aujourd'hui"
+                }
+              },
+              {
+                "id": "tomorrow",
+                "label": {
+                  "en": "Tomorrow",
+                  "fr": "Demain"
+                }
+              },
+              {
+                "id": "yesterday",
+                "label": {
+                  "en": "Yesterday",
+                  "fr": "Hier"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "is_public_holiday"
+      },
+      {
+        "title": {
+          "en": "It is school vacation...",
+          "fr": "Ce sont les vacances scolaires..."
+        },
+        "titleFormatted": {
+          "en": "[[when]] !{{is|is not}} school vacation",
+          "fr": "[[when]], ce !{{sont|ne sont pas}} les vacances scolaires"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "when",
+            "title": {
+              "en": "When",
+              "fr": "Quand"
+            },
+            "values": [
+              {
+                "id": "today",
+                "label": {
+                  "en": "Today",
+                  "fr": "Aujourd'hui"
+                }
+              },
+              {
+                "id": "tomorrow",
+                "label": {
+                  "en": "Tomorrow",
+                  "fr": "Demain"
+                }
+              },
+              {
+                "id": "yesterday",
+                "label": {
+                  "en": "Yesterday",
+                  "fr": "Hier"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "is_school_holiday"
+      },
+      {
+        "title": {
+          "en": "It is school vacation type...",
+          "fr": "C'est le type de vacances..."
+        },
+        "titleFormatted": {
+          "en": "[[when]] !{{is|is not}} [[type]] school vacation",
+          "fr": "[[when]], ce !{{sont|ne sont pas}} les vacances de [[type]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "when",
+            "title": {
+              "en": "When",
+              "fr": "Quand"
+            },
+            "values": [
+              {
+                "id": "today",
+                "label": {
+                  "en": "Today",
+                  "fr": "Aujourd'hui"
+                }
+              },
+              {
+                "id": "tomorrow",
+                "label": {
+                  "en": "Tomorrow",
+                  "fr": "Demain"
+                }
+              },
+              {
+                "id": "yesterday",
+                "label": {
+                  "en": "Yesterday",
+                  "fr": "Hier"
+                }
+              }
+            ]
+          },
+          {
+            "type": "dropdown",
+            "name": "type",
+            "title": {
+              "en": "Vacation type",
+              "fr": "Type de vacances"
+            },
+            "values": [
+              {
+                "id": "toussaint",
+                "label": {
+                  "en": "All Saints",
+                  "fr": "Toussaint"
+                }
+              },
+              {
+                "id": "noel",
+                "label": {
+                  "en": "Christmas",
+                  "fr": "Noël"
+                }
+              },
+              {
+                "id": "hiver",
+                "label": {
+                  "en": "Winter",
+                  "fr": "Hiver"
+                }
+              },
+              {
+                "id": "printemps",
+                "label": {
+                  "en": "Spring",
+                  "fr": "Printemps"
+                }
+              },
+              {
+                "id": "ete",
+                "label": {
+                  "en": "Summer",
+                  "fr": "Été"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "school_holiday_type_is"
+      }
+    ]
+  },
+  "widgets": {
+    "day-summary": {
+      "name": {
+        "en": "Today",
+        "fr": "Aujourd'hui"
+      },
+      "height": "60%",
+      "transparent": false,
+      "api": {
+        "getSummary": {
+          "method": "GET",
+          "path": "/"
+        }
+      },
+      "id": "day-summary",
+      "settings": []
+    }
   }
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="/homey.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .row { margin-bottom: 8px; }
+    .label { opacity: 0.65; font-size: 12px; }
+    .value { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+  <script type="text/javascript">
+    function esc(text) {
+      const d = document.createElement('div');
+      d.textContent = text == null ? '' : String(text);
+      return d.innerHTML;
+    }
+
+    function render(data, Homey) {
+      const ph = data.publicHoliday || {};
+      const sh = data.schoolHoliday || {};
+
+      let schoolText = Homey.__('widget.none');
+      if (sh.isActive && sh.currentLabel) {
+        schoolText = sh.currentLabel;
+        if (sh.daysUntilEnd != null) {
+          schoolText += ' (' + Homey.__('widget.endsInDays', { days: sh.daysUntilEnd }) + ')';
+        }
+      } else if (sh.nextLabel && sh.daysUntilNext != null) {
+        schoolText = sh.nextLabel + ' (' + Homey.__('widget.inDays', { days: sh.daysUntilNext }) + ')';
+      }
+
+      let holidayText = Homey.__('widget.none');
+      if (ph.isHoliday && ph.label) holidayText = ph.label;
+      else if (ph.nextLabel && ph.daysUntilNext != null) {
+        holidayText = ph.nextLabel + ' (' + Homey.__('widget.inDays', { days: ph.daysUntilNext }) + ')';
+      }
+
+      document.getElementById('content').innerHTML =
+        '<div class="row"><div class="label">' + esc(Homey.__('widget.schoolHoliday')) + '</div>' +
+        '<div class="value">' + esc(schoolText) + '</div></div>' +
+        '<div class="row"><div class="label">' + esc(Homey.__('widget.publicHoliday')) + '</div>' +
+        '<div class="value">' + esc(holidayText) + '</div></div>';
+    }
+
+    function onHomeyReady(Homey) {
+      Homey.api('GET', '/', null)
+        .then((data) => {
+          render(data, Homey);
+          Homey.ready({ height: 110 });
+        })
+        .catch(() => {
+          document.getElementById('content').textContent = '…';
+          Homey.ready({ height: 80 });
+        });
+    }
+  </script>
+</body>
+</html>
