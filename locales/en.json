@@ -10,7 +10,7 @@
     "sectionData": "Data",
     "dataHelp": "Official calendars cached on Homey. Nightly recalc ~00:05 (Paris); cache renews at most every 90 days (vacations) / 180 days (holidays).",
     "syncHelp": "Re-download calendars immediately, even if the cache is still valid.",
-    "schoolZoneHelp": "Zone = school academy. Geolocation is only a hint.",
+    "schoolZoneHelp": "Zone = school academy. On install, values are pre-filled from Homey location (check and adjust if needed).",
     "schoolZone": "School vacation zone",
     "holidayRegion": "Public holiday region",
     "labelLanguage": "Event label language",
