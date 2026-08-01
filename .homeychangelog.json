@@ -5,5 +5,8 @@
   },
   "1.1.0": {
     "en": "fix readme"
+  },
+  "1.1.1": {
+    "en": "Préremplissage zone/région depuis la géoloc Homey à l’installation"
   }
 }
