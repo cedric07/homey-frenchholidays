@@ -1,6 +1,6 @@
 {
   "1.0.0": {
-    "en": "First version: French school vacations by zone, plus regional public holidays.",
-    "fr": "Première version : vacances scolaires par zone, et jours fériés régionaux."
+    "en": "First release: French school vacations by zone (A/B/C, Corsica, overseas), regional public holidays, Flow conditions (today/tomorrow/yesterday, vacation type, day countdowns), triggers (start/end today, starts/ends in N days, public holiday today/tomorrow), Dashboard widget, nightly refresh ~00:05 Paris, and official API cache.",
+    "fr": "Première version : vacances scolaires par zone (A/B/C, Corse, DOM-TOM), jours fériés régionaux, conditions Flow (aujourd'hui/demain/hier, type de vacances, compte à rebours), déclencheurs (début/fin du jour, dans N jours, férié aujourd'hui/demain), widget Dashboard, recalcul nocturne ~00h05 Paris, et cache des APIs officielles."
   }
 }

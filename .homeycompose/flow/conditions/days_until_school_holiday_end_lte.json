@@ -1,11 +1,11 @@
 {
   "title": {
-    "en": "Next public holiday is within...",
-    "fr": "Le prochain jour férié arrive bientôt..."
+    "en": "School vacation ends within...",
+    "fr": "Les vacances se terminent bientôt..."
   },
   "titleFormatted": {
-    "en": "The next public holiday !{{is|is not}} within [[days]] day(s)",
-    "fr": "Le prochain jour férié !{{arrive|n'arrive pas}} dans [[days]] jour(s) ou moins"
+    "en": "School vacation !{{ends|does not end}} within [[days]] day(s)",
+    "fr": "Les vacances scolaires !{{se terminent|ne se terminent pas}} dans [[days]] jour(s) ou moins"
   },
   "args": [
     {

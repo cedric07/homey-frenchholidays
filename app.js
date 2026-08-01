@@ -48,23 +48,45 @@ module.exports = class DayInfoApp extends Homey.App {
     }
 
     await this.dayInfo.update();
-    const tokens = this.dayInfo.buildFlowTokens();
-    const changes = this.dayInfo.detectChanges();
-
-    for (const change of changes) {
-      await this._triggerCard(change.type, tokens);
-      this.dayInfo.markTriggered(change.type, this.dayInfo.getSnapshot().date);
-    }
+    await this._dispatchTriggers();
   }
 
   async _fireTodayTriggers() {
     await this.dayInfo.update();
+    await this._dispatchTriggers();
+  }
+
+  async _dispatchTriggers() {
     const tokens = this.dayInfo.buildFlowTokens();
     const changes = this.dayInfo.detectChanges();
+    const snapshot = this.dayInfo.getSnapshot();
+    const today = snapshot.date;
 
     for (const change of changes) {
       await this._triggerCard(change.type, tokens);
-      this.dayInfo.markTriggered(change.type, this.dayInfo.getSnapshot().date);
+      this.dayInfo.markTriggered(change.type, today);
+    }
+
+    await this._fireCountdownTriggers(snapshot, tokens, today);
+  }
+
+  async _fireCountdownTriggers(snapshot, tokens, today) {
+    const daysUntilStart = snapshot.schoolHoliday.daysUntilNext;
+    if (daysUntilStart != null && daysUntilStart >= 1) {
+      const key = `school_holiday_starts_in:${daysUntilStart}`;
+      if (!this.dayInfo._wasTriggeredToday(key, today)) {
+        await this._triggerCardWithState('school_holiday_starts_in', tokens, { days: daysUntilStart });
+        this.dayInfo.markTriggered(key, today);
+      }
+    }
+
+    const daysUntilEnd = snapshot.schoolHoliday.daysUntilEnd;
+    if (snapshot.schoolHoliday.isActive && daysUntilEnd != null && daysUntilEnd >= 1) {
+      const key = `school_holiday_ends_in:${daysUntilEnd}`;
+      if (!this.dayInfo._wasTriggeredToday(key, today)) {
+        await this._triggerCardWithState('school_holiday_ends_in', tokens, { days: daysUntilEnd });
+        this.dayInfo.markTriggered(key, today);
+      }
     }
   }
 
@@ -121,17 +143,55 @@ module.exports = class DayInfoApp extends Homey.App {
     }
   }
 
+  async _triggerCardWithState(id, tokens, state) {
+    try {
+      const card = this.homey.flow.getTriggerCard(id);
+      await card.trigger(tokens, state);
+    } catch (err) {
+      this.error(`Trigger ${id} failed:`, err.message);
+    }
+  }
+
+  _schoolHolidayForWhen(snapshot, when) {
+    const sh = snapshot.schoolHoliday;
+    if (when === 'yesterday') {
+      return { active: sh.isActiveYesterday, label: sh.yesterdayLabel, type: sh.yesterdayType };
+    }
+    if (when === 'tomorrow') {
+      return { active: sh.isActiveTomorrow, label: sh.tomorrowLabel, type: sh.tomorrowType };
+    }
+    return { active: sh.isActive, label: sh.currentLabel, type: sh.currentType };
+  }
+
+  _publicHolidayForWhen(snapshot, when) {
+    const ph = snapshot.publicHoliday;
+    if (when === 'yesterday') {
+      return { active: ph.isHolidayYesterday, label: ph.yesterdayLabel };
+    }
+    if (when === 'tomorrow') {
+      return { active: ph.isHolidayTomorrow, label: ph.tomorrowLabel };
+    }
+    return { active: ph.isHoliday, label: ph.label };
+  }
+
   _registerFlowCards() {
     this.homey.flow.getConditionCard('is_public_holiday')
-      .registerRunListener(async () => {
+      .registerRunListener(async (args) => {
         const snapshot = await this.dayInfo.getSummary();
-        return snapshot.publicHoliday.isHoliday;
+        return this._publicHolidayForWhen(snapshot, args.when || 'today').active;
       });
 
     this.homey.flow.getConditionCard('is_school_holiday')
-      .registerRunListener(async () => {
+      .registerRunListener(async (args) => {
         const snapshot = await this.dayInfo.getSummary();
-        return snapshot.schoolHoliday.isActive;
+        return this._schoolHolidayForWhen(snapshot, args.when || 'today').active;
+      });
+
+    this.homey.flow.getConditionCard('school_holiday_type_is')
+      .registerRunListener(async (args) => {
+        const snapshot = await this.dayInfo.getSummary();
+        const info = this._schoolHolidayForWhen(snapshot, args.when || 'today');
+        return info.active && info.type === args.type;
       });
 
     this.homey.flow.getConditionCard('days_until_school_holiday_lte')
@@ -142,6 +202,14 @@ module.exports = class DayInfoApp extends Homey.App {
         return days <= args.days;
       });
 
+    this.homey.flow.getConditionCard('days_until_school_holiday_end_lte')
+      .registerRunListener(async (args) => {
+        const snapshot = await this.dayInfo.getSummary();
+        const days = snapshot.schoolHoliday.daysUntilEnd;
+        if (!snapshot.schoolHoliday.isActive || days === null) return false;
+        return days <= args.days;
+      });
+
     this.homey.flow.getConditionCard('days_until_public_holiday_lte')
       .registerRunListener(async (args) => {
         const snapshot = await this.dayInfo.getSummary();
@@ -149,6 +217,12 @@ module.exports = class DayInfoApp extends Homey.App {
         if (days === null) return false;
         return days <= args.days;
       });
+
+    this.homey.flow.getTriggerCard('school_holiday_starts_in')
+      .registerRunListener(async (args, state) => Number(args.days) === Number(state.days));
+
+    this.homey.flow.getTriggerCard('school_holiday_ends_in')
+      .registerRunListener(async (args, state) => Number(args.days) === Number(state.days));
   }
 
   onUninit() {

@@ -1,11 +1,11 @@
 {
   "title": {
-    "en": "Days until next school vacation is at most...",
-    "fr": "Jours avant les prochaines vacances scolaires ≤ ..."
+    "en": "Next school vacation starts within...",
+    "fr": "Les prochaines vacances commencent bientôt..."
   },
   "titleFormatted": {
-    "en": "Days until next school vacation !{{is|is not}} at most [[days]]",
-    "fr": "Jours avant les prochaines vacances !{{≤|>}} [[days]]"
+    "en": "The next school vacation !{{starts|does not start}} within [[days]] day(s)",
+    "fr": "Les prochaines vacances scolaires !{{commencent|ne commencent pas}} dans [[days]] jour(s) ou moins"
   },
   "args": [
     {
