@@ -29,8 +29,7 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "Cédric Andrietti",
-    "email": "cedric.andrietti@gmail.com"
+    "name": "Cédric Andrietti"
   },
   "support": "https://github.com/cedric07/homey-frenchholidays/issues",
   "api": {
