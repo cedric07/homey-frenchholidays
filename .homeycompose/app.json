@@ -18,7 +18,7 @@
   "category": [
     "tools"
   ],
-  "brandColor": "#3478B3",
+  "brandColor": "#002395",
   "permissions": [
     "homey:manager:geolocation"
   ],
