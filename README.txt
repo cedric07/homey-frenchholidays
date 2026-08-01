@@ -13,14 +13,8 @@ School vacations and public holidays are fetched from official French government
 
 The cache is refreshed automatically when needed: school vacations at most every 90 days, public holidays at most every 180 days. While the cache is valid, the app works offline using stored data.
 
-Every night (around 00:05 Paris time), the app recalculates "are we on vacation today?", "is tomorrow a public holiday?", etc. from that cache, and triggers your Flows when something changes: school vacation start/end, public holiday today/tomorrow, or countdowns (starts/ends in N days).
+Every night (around 00:05 Paris time), the app recalculates "are we on vacation today?", "is tomorrow a public holiday?", etc. from that cache, and can trigger your Flows when something changes.
 
 The "Force sync" button in Settings re-downloads remote calendars immediately, even if the cache has not expired (useful after changing zone or region).
-
-Flow cards:
-- Conditions: school vacation / public holiday (today, tomorrow, yesterday), vacation type, next vacation/holiday within N days, vacation ends within N days
-- Triggers: vacation start/end today, public holiday today/tomorrow, vacation starts/ends in N days
-
-Dashboard widget "Today" shows today's key information at a glance.
 
 Languages: Homey UI is available in French and English. Calendar event names default to official French; an optional setting translates them to English.
