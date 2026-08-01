@@ -10,7 +10,7 @@
     "sectionData": "Données",
     "dataHelp": "Calendriers officiels en cache sur Homey. Recalcul chaque nuit ~00h05 (Paris) ; cache renouvelé au plus tard tous les 90 j (vacances) / 180 j (fériés).",
     "syncHelp": "Retélécharge les calendriers immédiatement, même si le cache est encore valide.",
-    "schoolZoneHelp": "Zone = académie scolaire. La géoloc n'est qu'une suggestion.",
+    "schoolZoneHelp": "Zone = académie scolaire. À l'installation, une suggestion est préremplie depuis la position Homey (vérifiez et ajustez si besoin).",
     "schoolZone": "Zone de vacances scolaires",
     "holidayRegion": "Région des jours fériés",
     "labelLanguage": "Langue des libellés",

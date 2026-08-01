@@ -5,8 +5,8 @@ Fonctionnalités :
 - Jours fériés régionaux (calendrier.api.gouv.fr, 13 régions) en complément
 
 Configuration :
-Allez dans Apps → Vacances scolaires en France → Réglages pour choisir votre zone de vacances scolaires et votre région de jours fériés.
-Utilisez « Suggérer depuis la position Homey » pour pré-remplir les deux champs selon la géolocalisation de votre box (simple aide, la zone dépend de l'académie scolaire).
+À l'installation, la zone de vacances et la région des jours fériés sont préremplies depuis la position Homey lorsque c'est possible (sinon Zone A / Métropole).
+Vérifiez dans Apps → Vacances scolaires en France → Réglages, et utilisez « Suggérer depuis la position Homey » pour recalculer (la zone dépend de l'académie scolaire).
 
 Données et synchronisation :
 Les vacances scolaires et jours fériés sont téléchargés depuis les APIs officielles du gouvernement français (data.education.gouv.fr et calendrier.api.gouv.fr), puis mis en cache sur votre Homey.

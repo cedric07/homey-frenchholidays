@@ -5,8 +5,8 @@ Features:
 - Regional public holidays (calendrier.api.gouv.fr, 13 regions) as a complement
 
 Configuration:
-Open Apps → French School Holidays → Settings to choose your school vacation zone and public holiday region.
-Use "Suggest from Homey location" to pre-fill both based on your Homey's position (hint only — the zone depends on the school academy).
+On install, the school vacation zone and public holiday region are pre-filled from Homey's location when possible (otherwise Zone A / Metropolitan France).
+Check Apps → French School Holidays → Settings, and use "Suggest from Homey location" to recalculate (the zone depends on the school academy).
 
 Data and synchronization:
 School vacations and public holidays are fetched from official French government APIs (data.education.gouv.fr and calendrier.api.gouv.fr) and cached on your Homey.
