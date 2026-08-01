@@ -1,5 +1,5 @@
 {
-  "id": "com.cedric07.dayinfo",
+  "id": "com.cedric07.frenchholidays",
   "version": "1.0.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
@@ -8,12 +8,12 @@
     "local"
   ],
   "name": {
-    "en": "Day Info",
-    "fr": "Informations du jour"
+    "en": "French School Holidays",
+    "fr": "Vacances scolaires en France"
   },
   "description": {
-    "en": "Public holidays, school vacations, moon phase and seasonal info for France.",
-    "fr": "Jours fériés, vacances scolaires, phase lunaire et infos du jour pour la France."
+    "en": "French school vacations by zone (A/B/C…), plus regional public holidays for Homey.",
+    "fr": "Vacances scolaires par zone (A/B/C…), et jours fériés régionaux pour Homey."
   },
   "category": [
     "tools"
@@ -31,7 +31,7 @@
     "name": "Cédric Andrietti",
     "email": "cedric.andrietti@gmail.com"
   },
-  "support": "https://github.com/cedric07/homey-dayinfo/issues",
+  "support": "https://github.com/cedric07/homey-frenchholidays/issues",
   "api": {
     "getSummary": {
       "method": "GET",

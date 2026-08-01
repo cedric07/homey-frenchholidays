@@ -2,6 +2,56 @@
 <html>
 <head>
   <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+  <style>
+    :root {
+      --di-accent: #0055A4;
+      --di-ok: #1b7a3d;
+      --di-error: #b42318;
+      --di-line: rgba(128, 128, 128, 0.22);
+      --di-surface: rgba(128, 128, 128, 0.07);
+    }
+
+    /* Encart autour des fieldsets Homey (leurs styles écrasent souvent le fieldset lui-même) */
+    .di-section {
+      margin: 0 0 12px;
+      padding: 10px 12px 12px;
+      border: 1px solid var(--di-line);
+      border-radius: 4px;
+      border-inline-start: 3px solid var(--di-accent);
+      background: var(--di-surface);
+    }
+
+    .di-section .homey-form-legend {
+      color: var(--di-accent);
+    }
+
+    .di-section .homey-button-secondary-full {
+      margin-block: 4px 8px;
+    }
+
+    .homey-form-help {
+      margin-top: 6px;
+    }
+
+    .di-status {
+      min-height: 1.2em;
+      margin: 8px 0;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .di-status.is-visible { opacity: 1; }
+    .di-status.is-ok { color: var(--di-ok); }
+    .di-status.is-error { color: var(--di-error); }
+    .di-status.is-busy { opacity: 0.75; }
+
+    button:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <header class="homey-header">
@@ -9,42 +59,59 @@
     <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
   </header>
 
-  <p class="homey-form-help" data-i18n="settings.dataHelp"></p>
-  <p class="homey-form-help" data-i18n="settings.autoUpdateHelp"></p>
+  <form class="homey-form">
+    <p class="homey-form-help" data-i18n="settings.dataHelp"></p>
 
-  <fieldset class="homey-form-fieldset">
-    <legend class="homey-form-legend" data-i18n="settings.schoolZone"></legend>
-    <p class="homey-form-help" data-i18n="settings.schoolZoneHelp"></p>
-    <div class="homey-form-group">
-      <label class="homey-form-label" for="schoolZone" data-i18n="settings.schoolZone"></label>
-      <select class="homey-form-select" id="schoolZone"></select>
+    <div class="di-section">
+      <fieldset class="homey-form-fieldset">
+        <legend class="homey-form-legend" data-i18n="settings.sectionLocation"></legend>
+        <p class="homey-form-help" data-i18n="settings.schoolZoneHelp"></p>
+
+        <div class="homey-form-group">
+          <label class="homey-form-label" for="schoolZone" data-i18n="settings.schoolZone"></label>
+          <select class="homey-form-select" id="schoolZone"></select>
+        </div>
+
+        <button type="button" id="suggest" class="homey-button-secondary-full" data-i18n="settings.suggest"></button>
+
+        <div class="homey-form-group">
+          <label class="homey-form-label" for="holidayRegion" data-i18n="settings.holidayRegion"></label>
+          <select class="homey-form-select" id="holidayRegion"></select>
+        </div>
+      </fieldset>
     </div>
-    <button type="button" id="suggest" class="homey-button-secondary-full" data-i18n="settings.suggest"></button>
-  </fieldset>
 
-  <fieldset class="homey-form-fieldset">
-    <legend class="homey-form-legend" data-i18n="settings.holidayRegion"></legend>
-    <div class="homey-form-group">
-      <label class="homey-form-label" for="holidayRegion" data-i18n="settings.holidayRegion"></label>
-      <select class="homey-form-select" id="holidayRegion"></select>
+    <div class="di-section">
+      <fieldset class="homey-form-fieldset">
+        <legend class="homey-form-legend" data-i18n="settings.sectionPrefs"></legend>
+        <p class="homey-form-help" data-i18n="settings.labelLanguageHelp"></p>
+
+        <div class="homey-form-group">
+          <label class="homey-form-label" for="labelLanguage" data-i18n="settings.labelLanguage"></label>
+          <select class="homey-form-select" id="labelLanguage">
+            <option value="fr" data-i18n="settings.langFr"></option>
+            <option value="en" data-i18n="settings.langEn"></option>
+          </select>
+        </div>
+      </fieldset>
     </div>
-  </fieldset>
 
-  <fieldset class="homey-form-fieldset">
-    <legend class="homey-form-legend" data-i18n="settings.labelLanguage"></legend>
-    <div class="homey-form-group">
-      <label class="homey-form-label" for="labelLanguage" data-i18n="settings.labelLanguage"></label>
-      <select class="homey-form-select" id="labelLanguage">
-        <option value="fr" data-i18n="settings.langFr"></option>
-        <option value="en" data-i18n="settings.langEn"></option>
-      </select>
+    <div class="di-section">
+      <fieldset class="homey-form-fieldset">
+        <legend class="homey-form-legend" data-i18n="settings.sectionData"></legend>
+        <p class="homey-form-help" data-i18n="settings.syncHelp"></p>
+
+        <div class="homey-form-group">
+          <label class="homey-form-label" for="lastSync" data-i18n="settings.lastSync"></label>
+          <input class="homey-form-input" id="lastSync" type="text" value="-" readonly disabled />
+        </div>
+
+        <button type="button" id="sync" class="homey-button-secondary-full" data-i18n="settings.sync"></button>
+      </fieldset>
     </div>
-  </fieldset>
+  </form>
 
-  <p><strong data-i18n="settings.lastSync"></strong>: <span id="lastSync">-</span></p>
-  <p class="homey-form-help" data-i18n="settings.syncHelp"></p>
-
-  <button type="button" id="sync" class="homey-button-secondary-full" data-i18n="settings.sync"></button>
+  <p id="status" class="di-status" role="status" aria-live="polite"></p>
   <button type="button" id="save" class="homey-button-primary-full" data-i18n="settings.save"></button>
 
   <script type="text/javascript">
@@ -84,6 +151,29 @@
       });
     }
 
+    function setBusy(busy) {
+      ['save', 'sync', 'suggest'].forEach((id) => {
+        document.getElementById(id).disabled = busy;
+      });
+    }
+
+    function showStatus(message, type) {
+      const el = document.getElementById('status');
+      el.textContent = message || '';
+      el.className = message
+        ? `di-status is-visible is-${type || 'ok'}`
+        : 'di-status';
+    }
+
+    function setSetting(Homey, key, value) {
+      return new Promise((resolve, reject) => {
+        Homey.set(key, value, (err) => {
+          if (err) reject(err);
+          else resolve();
+        });
+      });
+    }
+
     function onHomeyReady(Homey) {
       const schoolZoneEl = document.getElementById('schoolZone');
       const holidayRegionEl = document.getElementById('holidayRegion');
@@ -103,42 +193,59 @@
         if (!err && val) labelLanguageEl.value = val;
       });
       Homey.get('lastSyncAt', (err, val) => {
-        lastSyncEl.textContent = val ? new Date(val).toLocaleString() : Homey.__('settings.never');
+        lastSyncEl.value = val
+          ? new Date(val).toLocaleString()
+          : Homey.__('settings.never');
       });
 
       Homey.ready();
 
       document.getElementById('save').addEventListener('click', () => {
-        Homey.set('schoolZone', schoolZoneEl.value, (err) => {
-          if (err) return Homey.alert(String(err));
-          Homey.set('holidayRegion', holidayRegionEl.value, (err2) => {
-            if (err2) return Homey.alert(String(err2));
-            Homey.set('labelLanguage', labelLanguageEl.value, (err3) => {
-              if (err3) return Homey.alert(String(err3));
-              Homey.alert(Homey.__('settings.saved'));
-            });
-          });
-        });
+        setBusy(true);
+        showStatus(Homey.__('settings.saving'), 'busy');
+
+        setSetting(Homey, 'schoolZone', schoolZoneEl.value)
+          .then(() => setSetting(Homey, 'holidayRegion', holidayRegionEl.value))
+          .then(() => setSetting(Homey, 'labelLanguage', labelLanguageEl.value))
+          .then(() => showStatus(Homey.__('settings.saved'), 'ok'))
+          .catch((err) => {
+            showStatus(String(err) || Homey.__('settings.saveError'), 'error');
+          })
+          .finally(() => setBusy(false));
       });
 
       document.getElementById('sync').addEventListener('click', () => {
+        setBusy(true);
+        showStatus(Homey.__('settings.syncing'), 'busy');
+
         Homey.api('POST', '/sync', null, (err) => {
-          if (err) return Homey.alert(Homey.__('settings.syncError'));
+          setBusy(false);
+          if (err) {
+            showStatus(Homey.__('settings.syncError'), 'error');
+            return;
+          }
           Homey.get('lastSyncAt', (e, val) => {
-            lastSyncEl.textContent = val ? new Date(val).toLocaleString() : '-';
+            lastSyncEl.value = val
+              ? new Date(val).toLocaleString()
+              : Homey.__('settings.never');
           });
-          Homey.alert(Homey.__('settings.syncDone'));
+          showStatus(Homey.__('settings.syncDone'), 'ok');
         });
       });
 
       document.getElementById('suggest').addEventListener('click', () => {
+        setBusy(true);
+        showStatus(Homey.__('settings.suggesting'), 'busy');
+
         Homey.api('GET', '/suggest-zone', null, (err, result) => {
+          setBusy(false);
           if (err || !result || result.error) {
-            return Homey.alert(Homey.__('settings.suggestError'));
+            showStatus(Homey.__('settings.suggestError'), 'error');
+            return;
           }
           if (result.schoolZone) schoolZoneEl.value = result.schoolZone;
           if (result.holidayRegion) holidayRegionEl.value = result.holidayRegion;
-          Homey.alert(Homey.__('settings.suggestDone'));
+          showStatus(Homey.__('settings.suggestDone'), 'ok');
         });
       });
     }

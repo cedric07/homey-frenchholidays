@@ -1,5 +1,5 @@
 {
-  "name": "com.cedric07.dayinfo",
+  "name": "com.cedric07.frenchholidays",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -9,8 +9,5 @@
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12",
     "eslint": "^7.32.0",
     "eslint-config-athom": "^3.1.5"
-  },
-  "dependencies": {
-    "suncalc": "^2.0.1"
   }
 }

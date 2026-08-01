@@ -8,7 +8,7 @@ const { msUntilNextParisTime } = require('./lib/dateUtils');
 module.exports = class DayInfoApp extends Homey.App {
 
   async onInit() {
-    this.log('Day Info app initializing');
+    this.log('French School Holidays app initializing');
 
     this._ensureDefaultSettings();
     this.dayInfo = new DayInfoService(this.homey, this.log.bind(this), this.error.bind(this));
@@ -29,7 +29,7 @@ module.exports = class DayInfoApp extends Homey.App {
       }
     }
 
-    this.log('Day Info app ready');
+    this.log('French School Holidays app ready');
   }
 
   _ensureDefaultSettings() {
@@ -134,24 +134,6 @@ module.exports = class DayInfoApp extends Homey.App {
         return snapshot.schoolHoliday.isActive;
       });
 
-    this.homey.flow.getConditionCard('is_weekend')
-      .registerRunListener(async () => {
-        const snapshot = await this.dayInfo.getSummary();
-        return snapshot.various.isWeekend;
-      });
-
-    this.homey.flow.getConditionCard('season_is')
-      .registerRunListener(async (args) => {
-        const snapshot = await this.dayInfo.getSummary();
-        return snapshot.season.id === args.season;
-      });
-
-    this.homey.flow.getConditionCard('moon_phase_is')
-      .registerRunListener(async (args) => {
-        const snapshot = await this.dayInfo.getSummary();
-        return snapshot.moon.phaseId === args.phase;
-      });
-
     this.homey.flow.getConditionCard('days_until_school_holiday_lte')
       .registerRunListener(async (args) => {
         const snapshot = await this.dayInfo.getSummary();
@@ -166,24 +148,6 @@ module.exports = class DayInfoApp extends Homey.App {
         const days = snapshot.publicHoliday.daysUntilNext;
         if (days === null) return false;
         return days <= args.days;
-      });
-
-    this.homey.flow.getConditionCard('weekday_occurrence_is')
-      .registerRunListener(async (args) => {
-        const snapshot = await this.dayInfo.getSummary();
-        return snapshot.various.weekdayOccurrence === parseInt(args.occurrence, 10);
-      });
-
-    this.homey.flow.getConditionCard('is_last_weekday_occurrence')
-      .registerRunListener(async () => {
-        const snapshot = await this.dayInfo.getSummary();
-        return snapshot.various.isLastWeekdayOccurrence;
-      });
-
-    this.homey.flow.getConditionCard('day_of_year_is')
-      .registerRunListener(async (args) => {
-        const snapshot = await this.dayInfo.getSummary();
-        return snapshot.various.dayOfYear === args.day;
       });
   }
 
