@@ -1,20 +1,3 @@
-Vacances scolaires en France apporte les vacances scolaires (et les jours fériés régionaux) dans vos Flows et Dashboards Homey.
+Vacances scolaires en France vous aide à automatiser Homey autour des vacances scolaires par zone (A/B/C, Corse, DOM-TOM) et des jours fériés régionaux, à partir des calendriers officiels. À l'installation, la zone et la région sont préremplies depuis la position Homey lorsque c'est possible ; vous pouvez les vérifier ou les ajuster dans les Réglages, notamment via « Suggérer depuis la position Homey ».
 
-Fonctionnalités :
-- Vacances scolaires par zone (A/B/C, Corse, DOM-TOM) via les données officielles de l'Éducation nationale
-- Jours fériés régionaux (calendrier.api.gouv.fr, 13 régions) en complément
-
-Configuration :
-À l'installation, la zone de vacances et la région des jours fériés sont préremplies depuis la position Homey lorsque c'est possible (sinon Zone A / Métropole).
-Vérifiez dans Apps → Vacances scolaires en France → Réglages, et utilisez « Suggérer depuis la position Homey » pour recalculer (la zone dépend de l'académie scolaire).
-
-Données et synchronisation :
-Les vacances scolaires et jours fériés sont téléchargés depuis les APIs officielles du gouvernement français (data.education.gouv.fr et calendrier.api.gouv.fr), puis mis en cache sur votre Homey.
-
-Le cache est renouvelé automatiquement lorsque nécessaire : vacances scolaires au plus tard tous les 90 jours, jours fériés au plus tard tous les 180 jours. Tant que le cache est valide, l'app travaille hors ligne avec les données déjà stockées.
-
-Chaque nuit (vers 00h05 heure de Paris), l'app recalcule « est-ce vacances aujourd'hui ? », « férié demain ? », etc. à partir de ce cache, et peut déclencher vos Flows si un événement change.
-
-Le bouton « Forcer la synchronisation » dans les réglages retélécharge immédiatement les calendriers distants, même si le cache n'a pas expiré (utile après un changement de zone ou région).
-
-Langues : l'interface Homey est disponible en français et en anglais. Les libellés calendrier restent en français officiel par défaut ; un réglage optionnel les traduit en anglais.
+Les calendriers sont mis en cache sur Homey (vacances jusqu'à 90 jours, fériés jusqu'à 180 jours) pour continuer hors ligne tant que le cache est valide, avec un recalcul nocturne vers 00h05 heure de Paris pour mettre à jour vos Flows. Le bouton « Forcer la synchronisation » retélécharge immédiatement les calendriers après un changement de zone ou de région. L'interface Homey est disponible en français et en anglais ; les libellés calendrier restent en français officiel par défaut, avec une traduction anglaise optionnelle.
