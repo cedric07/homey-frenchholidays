@@ -4,9 +4,11 @@
     "fr": "Première version : vacances scolaires par zone (A/B/C, Corse, DOM-TOM), jours fériés régionaux, conditions Flow (aujourd'hui/demain/hier, type de vacances, compte à rebours), déclencheurs (début/fin du jour, dans N jours, férié aujourd'hui/demain), widget Dashboard, recalcul nocturne ~00h05 Paris, et cache des APIs officielles."
   },
   "1.1.0": {
-    "en": "fix readme"
+    "en": "Simplified the App Store readme for clearer onboarding.",
+    "fr": "README App Store simplifié pour un onboarding plus clair."
   },
   "1.1.1": {
-    "en": "Préremplissage zone/région depuis la géoloc Homey à l’installation"
+    "en": "Pre-fill school zone and holiday region from Homey location on install.",
+    "fr": "Préremplissage de la zone et de la région depuis la position Homey à l'installation."
   }
 }

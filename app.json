@@ -13,8 +13,8 @@
     "fr": "Vacances scolaires en France"
   },
   "description": {
-    "en": "French school vacations by zone (A/B/C…), plus regional public holidays for Homey.",
-    "fr": "Vacances scolaires par zone (A/B/C…), et jours fériés régionaux pour Homey."
+    "en": "Automate your home around French school holidays",
+    "fr": "Automatisez votre maison autour des vacances scolaires"
   },
   "category": [
     "tools"
