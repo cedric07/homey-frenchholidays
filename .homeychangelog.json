@@ -10,5 +10,9 @@
   "1.1.1": {
     "en": "Pre-fill school zone and holiday region from Homey location on install.",
     "fr": "Préremplissage de la zone et de la région depuis la position Homey à l'installation."
+  },
+  "1.1.2": {
+    "en": "App Store certification fixes: English changelogs, prose readme, and slogan description.",
+    "fr": "Corrections certification App Store : changelogs en anglais, README en prose, description slogan."
   }
 }
