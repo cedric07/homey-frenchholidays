@@ -14,5 +14,8 @@
   "1.1.2": {
     "en": "App Store certification fixes: English changelogs, prose readme, and slogan description.",
     "fr": "Corrections certification App Store : changelogs en anglais, README en prose, description slogan."
+  },
+  "1.1.3": {
+    "en": "Change readme"
   }
 }

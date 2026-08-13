@@ -1,6 +1,6 @@
 {
   "id": "com.cedric07.frenchholidays",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "runtime": "nodejs",
@@ -31,6 +31,17 @@
     "name": "Cédric Andrietti"
   },
   "support": "https://github.com/cedric07/homey-frenchholidays/issues",
+  "source": "https://github.com/cedric07/homey-frenchholidays",
+  "bugs": {
+    "url": "https://github.com/cedric07/homey-frenchholidays/issues"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "CedricAndrietti"
+      }
+    }
+  },
   "api": {
     "getSummary": {
       "method": "GET",
