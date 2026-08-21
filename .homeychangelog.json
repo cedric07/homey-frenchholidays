@@ -17,5 +17,9 @@
   },
   "1.1.3": {
     "en": "Change readme"
+  },
+  "1.1.4": {
+    "en": "Stop unreliable auto zone on install (default Zone A / Metropolitan France). Keep manual Suggest from Homey location, with clearer errors and UI feedback under the button.",
+    "fr": "Suppression de la préconfig auto peu fiable (défaut Zone A / Métropole). Conservation du bouton Suggérer depuis la position Homey, avec erreurs plus claires et feedback sous le bouton."
   }
 }
