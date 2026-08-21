@@ -12,7 +12,6 @@ module.exports = class DayInfoApp extends Homey.App {
 
     this._ensureDefaultSettings();
     this.dayInfo = new DayInfoService(this.homey, this.log.bind(this), this.error.bind(this));
-    await this._initLocationSettings();
 
     this._registerFlowCards();
     this._scheduleDailyUpdate();
@@ -34,61 +33,11 @@ module.exports = class DayInfoApp extends Homey.App {
   }
 
   _ensureDefaultSettings() {
-    if (this.homey.settings.get('labelLanguage') === undefined) {
-      this.homey.settings.set('labelLanguage', DEFAULT_SETTINGS.labelLanguage);
-    }
-  }
-
-  /**
-   * First install: pre-fill zone/region from Homey geolocation when possible.
-   * Never overwrites an existing zone/region (manual choice or previous install).
-   */
-  async _initLocationSettings() {
-    if (this.homey.settings.get('locationInitialized')) {
-      return;
-    }
-
-    const hasZone = this.homey.settings.get('schoolZone') !== undefined;
-    const hasRegion = this.homey.settings.get('holidayRegion') !== undefined;
-
-    if (hasZone && hasRegion) {
-      this.homey.settings.set('locationInitialized', true);
-      return;
-    }
-
-    let { schoolZone, holidayRegion } = DEFAULT_SETTINGS;
-
-    try {
-      const suggestion = await this.dayInfo.geoZoneService.suggestZones();
-      const {
-        error,
-        schoolZone: suggestedZone,
-        holidayRegion: suggestedRegion,
-        department,
-      } = suggestion || {};
-
-      if (!error && suggestedZone) {
-        schoolZone = suggestedZone;
-        if (suggestedRegion) {
-          holidayRegion = suggestedRegion;
-        }
-        this.log(
-          `Auto-configured from Homey location (dept ${department}): ${schoolZone}, ${holidayRegion}`,
-        );
-      } else {
-        this.log('Geolocation suggestion unavailable, using default zone/region');
+    for (const [key, value] of Object.entries(DEFAULT_SETTINGS)) {
+      if (this.homey.settings.get(key) === undefined) {
+        this.homey.settings.set(key, value);
       }
-    } catch (err) {
-      this.error('Location auto-config failed:', err.message);
     }
-
-    if (!hasZone) {
-      this.homey.settings.set('schoolZone', schoolZone);
-    }
-    if (!hasRegion) {
-      this.homey.settings.set('holidayRegion', holidayRegion);
-    }
-    this.homey.settings.set('locationInitialized', true);
   }
 
   async runDailyUpdate() {
