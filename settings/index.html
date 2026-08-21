@@ -67,12 +67,13 @@
         <legend class="homey-form-legend" data-i18n="settings.sectionLocation"></legend>
         <p class="homey-form-help" data-i18n="settings.schoolZoneHelp"></p>
 
+        <button type="button" id="suggest" class="homey-button-secondary-full" data-i18n="settings.suggest"></button>
+        <p id="suggestStatus" class="di-status" role="status" aria-live="polite"></p>
+
         <div class="homey-form-group">
           <label class="homey-form-label" for="schoolZone" data-i18n="settings.schoolZone"></label>
           <select class="homey-form-select" id="schoolZone"></select>
         </div>
-
-        <button type="button" id="suggest" class="homey-button-secondary-full" data-i18n="settings.suggest"></button>
 
         <div class="homey-form-group">
           <label class="homey-form-label" for="holidayRegion" data-i18n="settings.holidayRegion"></label>
@@ -107,6 +108,7 @@
         </div>
 
         <button type="button" id="sync" class="homey-button-secondary-full" data-i18n="settings.sync"></button>
+        <p id="syncStatus" class="di-status" role="status" aria-live="polite"></p>
       </fieldset>
     </div>
   </form>
@@ -157,8 +159,9 @@
       });
     }
 
-    function showStatus(message, type) {
-      const el = document.getElementById('status');
+    function showStatus(targetId, message, type) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
       el.textContent = message || '';
       el.className = message
         ? `di-status is-visible is-${type || 'ok'}`
@@ -202,26 +205,26 @@
 
       document.getElementById('save').addEventListener('click', () => {
         setBusy(true);
-        showStatus(Homey.__('settings.saving'), 'busy');
+        showStatus('status', Homey.__('settings.saving'), 'busy');
 
         setSetting(Homey, 'schoolZone', schoolZoneEl.value)
           .then(() => setSetting(Homey, 'holidayRegion', holidayRegionEl.value))
           .then(() => setSetting(Homey, 'labelLanguage', labelLanguageEl.value))
-          .then(() => showStatus(Homey.__('settings.saved'), 'ok'))
+          .then(() => showStatus('status', Homey.__('settings.saved'), 'ok'))
           .catch((err) => {
-            showStatus(String(err) || Homey.__('settings.saveError'), 'error');
+            showStatus('status', String(err) || Homey.__('settings.saveError'), 'error');
           })
           .finally(() => setBusy(false));
       });
 
       document.getElementById('sync').addEventListener('click', () => {
         setBusy(true);
-        showStatus(Homey.__('settings.syncing'), 'busy');
+        showStatus('syncStatus', Homey.__('settings.syncing'), 'busy');
 
         Homey.api('POST', '/sync', null, (err) => {
           setBusy(false);
           if (err) {
-            showStatus(Homey.__('settings.syncError'), 'error');
+            showStatus('syncStatus', Homey.__('settings.syncError'), 'error');
             return;
           }
           Homey.get('lastSyncAt', (e, val) => {
@@ -229,23 +232,32 @@
               ? new Date(val).toLocaleString()
               : Homey.__('settings.never');
           });
-          showStatus(Homey.__('settings.syncDone'), 'ok');
+          showStatus('syncStatus', Homey.__('settings.syncDone'), 'ok');
         });
       });
 
       document.getElementById('suggest').addEventListener('click', () => {
         setBusy(true);
-        showStatus(Homey.__('settings.suggesting'), 'busy');
+        showStatus('suggestStatus', Homey.__('settings.suggesting'), 'busy');
 
         Homey.api('GET', '/suggest-zone', null, (err, result) => {
           setBusy(false);
-          if (err || !result || result.error) {
-            showStatus(Homey.__('settings.suggestError'), 'error');
+          if (err || !result || result.error || !result.schoolZone) {
+            const code = result && result.error;
+            let message = Homey.__('settings.suggestError');
+            if (code === 'geolocation_unavailable') {
+              message = Homey.__('settings.suggestErrorGeolocation');
+            } else if (code === 'geocode_failed') {
+              message = Homey.__('settings.suggestErrorGeocode');
+            } else if (code === 'zone_unknown') {
+              message = Homey.__('settings.suggestErrorZone');
+            }
+            showStatus('suggestStatus', message, 'error');
             return;
           }
-          if (result.schoolZone) schoolZoneEl.value = result.schoolZone;
+          schoolZoneEl.value = result.schoolZone;
           if (result.holidayRegion) holidayRegionEl.value = result.holidayRegion;
-          showStatus(Homey.__('settings.suggestDone'), 'ok');
+          showStatus('suggestStatus', Homey.__('settings.suggestDone'), 'ok');
         });
       });
     }

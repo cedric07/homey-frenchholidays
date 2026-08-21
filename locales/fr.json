@@ -10,7 +10,7 @@
     "sectionData": "Données",
     "dataHelp": "Calendriers officiels en cache sur Homey. Recalcul chaque nuit ~00h05 (Paris) ; cache renouvelé au plus tard tous les 90 j (vacances) / 180 j (fériés).",
     "syncHelp": "Retélécharge les calendriers immédiatement, même si le cache est encore valide.",
-    "schoolZoneHelp": "Zone = académie scolaire. À l'installation, une suggestion est préremplie depuis la position Homey (vérifiez et ajustez si besoin).",
+    "schoolZoneHelp": "Par défaut : Zone A et Métropole. Le bouton ci-dessous remplit zone et région depuis la position Homey (à vérifier — la zone dépend de l'académie).",
     "schoolZone": "Zone de vacances scolaires",
     "holidayRegion": "Région des jours fériés",
     "labelLanguage": "Langue des libellés",
@@ -28,6 +28,9 @@
     "syncError": "Échec de la synchronisation",
     "suggestDone": "Suggestion appliquée — pensez à enregistrer",
     "suggestError": "Impossible de déterminer la zone depuis la position",
+    "suggestErrorGeolocation": "Position Homey indisponible — vérifiez l'adresse de votre Homey",
+    "suggestErrorGeocode": "Impossible de trouver une commune pour cette position",
+    "suggestErrorZone": "Département trouvé, mais zone scolaire inconnue",
     "langFr": "Français",
     "langEn": "Anglais"
   },
