@@ -28,6 +28,9 @@
     "syncError": "Synchronization failed",
     "suggestDone": "Suggestion applied — remember to save",
     "suggestError": "Could not determine zone from location",
+    "suggestErrorGeolocation": "Homey location unavailable — check your Homey's address",
+    "suggestErrorGeocode": "Could not find a commune for this location",
+    "suggestErrorZone": "Department found, but school zone is unknown",
     "langFr": "French",
     "langEn": "English"
   },

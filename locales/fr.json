@@ -28,6 +28,9 @@
     "syncError": "Échec de la synchronisation",
     "suggestDone": "Suggestion appliquée — pensez à enregistrer",
     "suggestError": "Impossible de déterminer la zone depuis la position",
+    "suggestErrorGeolocation": "Position Homey indisponible — vérifiez l'adresse de votre Homey",
+    "suggestErrorGeocode": "Impossible de trouver une commune pour cette position",
+    "suggestErrorZone": "Département trouvé, mais zone scolaire inconnue",
     "langFr": "Français",
     "langEn": "Anglais"
   },
